@@ -4,6 +4,7 @@ import projectsRoutes from './projects.routes.js';
 import tasksRoutes from './tasks.routes.js';
 import usersRoutes from './users.routes.js';
 import dashboardRoutes from './dashboard.routes.js';
+import debugRoutes from './debug.routes.js';
 
 const router = Router();
 
@@ -11,6 +12,7 @@ router.get('/health', (_req, res) => {
   res.json({ status: 'ok' });
 });
 
+router.use('/debug', debugRoutes);
 router.use('/auth', authRoutes);
 router.use('/projects', projectsRoutes);
 router.use('/tasks', tasksRoutes);
