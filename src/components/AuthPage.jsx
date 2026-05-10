@@ -119,6 +119,24 @@ export default function AuthPage({ onAuthenticated }) {
           </Button>
         </form>
 
+        {mode === 'login' ? (
+          <div className="demo-panel">
+            <p>Admin Login</p>
+            <button
+              type="button"
+              onClick={() => setForm((prev) => ({ ...prev, email: 'admin@demo.com', password: 'admin123' }))}
+            >
+              ID: admin@demo.com
+            </button>
+            <button
+              type="button"
+              onClick={() => setForm((prev) => ({ ...prev, email: 'admin@demo.com', password: 'admin123' }))}
+            >
+              Password: admin123
+            </button>
+          </div>
+        ) : null}
+
       </div>
     </div>
   );
