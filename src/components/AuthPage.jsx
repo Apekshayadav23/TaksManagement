@@ -24,11 +24,15 @@ export default function AuthPage({ onAuthenticated }) {
       next.name = 'Name should be at least 2 characters';
     }
 
-    if (!/^\S+@\S+\.\S+$/.test(form.email)) {
+    if (!form.email.trim()) {
+      next.email = 'Email is required';
+    } else if (!/^\S+@\S+\.\S+$/.test(form.email)) {
       next.email = 'Please enter a valid email';
     }
 
-    if (form.password.length < 6) {
+    if (!form.password) {
+      next.password = 'Password is required';
+    } else if (mode === 'signup' && form.password.length < 6) {
       next.password = 'Password should be at least 6 characters';
     }
 
@@ -59,7 +63,11 @@ export default function AuthPage({ onAuthenticated }) {
       setToken(response.token);
       onAuthenticated(response.user);
     } catch (error) {
-      setMessage(error.message);
+      if (mode === 'login') {
+        setMessage('Invalid email or password');
+      } else {
+        setMessage(error.message);
+      }
     } finally {
       setSubmitting(false);
     }
@@ -121,17 +129,26 @@ export default function AuthPage({ onAuthenticated }) {
 
         {mode === 'login' ? (
           <div className="demo-panel">
-            <p>Admin Login</p>
+            <p>Login Examples</p>
+            <button
+              type="button"
+              onClick={() => setForm((prev) => ({ ...prev, email: 'admin@demo.com', password: 'admin123' }))}
+            >
+              Admin: admin@demo.com / admin123
+            </button>
+            <button
+              type="button"
+              onClick={() => setForm((prev) => ({ ...prev, email: 'wrong@demo.com', password: 'wrong123' }))}
+            >
+              Wrong Example: wrong@demo.com / wrong123
+            </button>
             <button
               type="button"
               onClick={() => setForm((prev) => ({ ...prev, email: 'admin@demo.com', password: 'admin123' }))}
             >
               ID: admin@demo.com
             </button>
-            <button
-              type="button"
-              onClick={() => setForm((prev) => ({ ...prev, email: 'admin@demo.com', password: 'admin123' }))}
-            >
+            <button type="button" onClick={() => setForm((prev) => ({ ...prev, email: 'admin@demo.com', password: 'admin123' }))}>
               Password: admin123
             </button>
           </div>

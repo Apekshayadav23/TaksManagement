@@ -150,7 +150,7 @@ export default function TeamPage({ currentUser, users, onDataChange }) {
             <article key={user.id} className="member-card">
               <div className="member-top">
                 <Avatar name={user.name} role={user.role} size={42} />
-                <div>
+                <div className="member-identity">
                   <h3>{user.name}</h3>
                   <p>{user.email}</p>
                 </div>

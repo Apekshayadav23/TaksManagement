@@ -508,6 +508,38 @@ textarea {
   color: var(--muted);
 }
 
+.member-top {
+  align-items: center;
+}
+
+.member-top .badge {
+  flex-shrink: 0;
+}
+
+.member-identity {
+  min-width: 0;
+  flex: 1;
+}
+
+.member-identity h3,
+.member-identity p {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.member-card {
+  overflow: hidden;
+}
+
+.member-card .member-top {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.6rem;
+}
+
 .empty-state {
   padding: 1.6rem;
   text-align: center;
