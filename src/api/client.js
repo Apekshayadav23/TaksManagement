@@ -27,13 +27,28 @@ async function request(path, { method = 'GET', body, token } = {}) {
 
   if (response.status === 204) return null;
 
-  const data = await response.json();
+  const contentType = response.headers.get('content-type') || '';
+  const isJson = contentType.includes('application/json');
+  const payload = isJson ? await response.json() : await response.text();
 
   if (!response.ok) {
-    throw new Error(data.message || 'Request failed');
+    if (isJson) {
+      throw new Error(payload.message || 'Request failed');
+    }
+
+    const htmlResponseHint =
+      typeof payload === 'string' && payload.trim().startsWith('<')
+        ? 'Received HTML instead of JSON. Check VITE_API_BASE_URL or backend route.'
+        : `Unexpected non-JSON response (${response.status}).`;
+
+    throw new Error(htmlResponseHint);
   }
 
-  return data;
+  if (!isJson) {
+    throw new Error('Expected JSON response from API, but received non-JSON content.');
+  }
+
+  return payload;
 }
 
 export const api = {
