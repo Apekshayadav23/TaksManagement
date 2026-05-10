@@ -119,15 +119,6 @@ export default function AuthPage({ onAuthenticated }) {
           </Button>
         </form>
 
-        <div className="demo-panel">
-          <p>Demo Accounts</p>
-          <button type="button" onClick={() => setForm({ ...form, email: 'admin@demo.com', password: 'admin123' })}>
-            Admin: admin@demo.com / admin123
-          </button>
-          <button type="button" onClick={() => setForm({ ...form, email: 'member@demo.com', password: 'member123' })}>
-            Member: member@demo.com / member123
-          </button>
-        </div>
       </div>
     </div>
   );
